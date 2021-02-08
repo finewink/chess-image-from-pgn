@@ -1,0 +1,34 @@
+{
+  "name": "chessimage",
+  "version": "1.0.0",
+  "description": "create chess board images from PGN",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js",
+    "build": "pkg ."
+  },
+  "author": "finewink@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "base64-arraybuffer": "^0.2.0",
+    "chess-image-generator": "^1.0.9",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.5.0",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "pkg": "^4.4.9"
+  },
+  "bin": {
+    "app": "./index.js"
+  },
+  "pkg": {
+    "assets": [
+      "views/*"
+    ]
+  }
+}
