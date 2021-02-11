@@ -8,36 +8,51 @@ router.get("/", function(req, res, next){
 });
 
 router.get('/download', function(req, res){
-    console.log('download start');
-    //console.log('router received');
-    const ImageCreator = require('../service/imageCreator');
-    const util = require('util');
+    try{
 
-    var creator = new ImageCreator();
-    //console.log(typeof creator);
-    console.log('req.query=' + util.inspect(req.query));
+    
+        //console.log('download start');
+        //console.log('router received');
+        const ImageCreator = require('../service/imageCreator');
+        const util = require('util');
+        const urlencoder = require('urlencode');
 
-    creator.generateChessImages(req.query.pgn).then(obj => {
-        var code = obj.code;
+        var creator = new ImageCreator();
+        //console.log(typeof creator);
+        //console.log('req.query=' + util.inspect(req.query));
+        console.log('RECV>' + urlencoder.decode(req.query.pgn));
+
+        creator.generateChessImages(urlencoder.decode(req.query.pgn)).then(obj => {
+            var code = obj.code;
+                    
+            if(code == 200){
+                var filename = obj.filename;
+                var zip = obj.filecontent;
+                res.setHeader('Content-Disposition', 'attchment; filename=' + filename + '.zip');
+                res.set('Content-type', 'application/zip');            
+                /* zip.generateAsync({type:'nodebuffer'}).then(function(buf){
+                    let buffer = Buffer.from(buf);
+                    let arraybuffer = Uint8Array.from(buffer).buffer;
+                    console.log(util.inspect(arraybuffer));
+                    console.log(typeof arraybuffer);
+                    res.send(arraybuffer);
+                }); */
+                zip.generateNodeStream({type:'nodebuffer', streamFiles:true}).pipe(res.status(200)).on('finish', function(){
+                    console.log(filename + '.zip successfully written');
+                    //res.sendStatus(200);
+                    //res.cookie();
+                });
                 
-        if(code == 200){
-            var filename = obj.filename;
-            var zip = obj.filecontent;
-            res.setHeader('Content-Disposition', 'attchment; filename=' + filename + '.zip');
-            res.set('Content-type', 'application/zip');            
+            }
+            else{
+                res.status(500).send(obj);
+            }
             
-            zip.generateNodeStream({type:'nodebuffer', streamFiles:true}).pipe(res.status(200)).on('finish', function(){
-                console.log(filename + '.zip successfully written');
-                //res.sendStatus(200);
-            }); 
-            
-        }
-        else{
-            res.status(500).send(obj);
-        }
-        
-    });
-    //res.end(imageCreatorJs.generateChessImages(req.query.pgn, req.query.filepath));
+        });
+        //res.end(imageCreatorJs.generateChessImages(req.query.pgn, req.query.filepath));
+    }catch(err){
+        console.log(err);
+    }
 });
 
 module.exports = router;

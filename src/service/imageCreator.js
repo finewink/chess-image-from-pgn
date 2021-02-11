@@ -16,28 +16,31 @@ ImageCreator.prototype = {
             paddedCount = count + '';
         }
         var name = '';
-        if(pgnArray.length > 2){
+        if(pgnArray.length >= 2){
             //console.log('pgnArray[i - 1].indexOf("." > -1) = ' + pgnArray[i - 1].indexOf('.' > -1));
-            console.log(`pgnArray[i] = ${pgnArray[i]}, pgnArray[i-1] = ${pgnArray[i-1]} , pgnArray[i-2] = ${pgnArray[i-2]}`);
-            if(pgnArray[i - 1].indexOf('.' > -1)){
-                
-                name = `${paddedCount}_${currentMove} ${pgnArray[i]}  1`;
+            //console.log(`pgnArray[i] = ${pgnArray[i]}, pgnArray[i-1] = ${pgnArray[i-1]} , pgnArray[i-2] = ${pgnArray[i-2]}`);
+            //console.log(`pgnArray[i - 1].indexOf('.' > -1)=${pgnArray[i - 1] && pgnArray[i - 1].indexOf('.') > -1}`);
+            //console.log(`pgnArray[i - 2].indexOf('.' > -1)=${pgnArray[i - 2] && pgnArray[i - 2].indexOf('.') > -1}`);
+            if(pgnArray[i - 1] && pgnArray[i - 1].indexOf('.') > -1){
+                //console.log('move for white');
+                name = `${paddedCount}_${currentMove} ${pgnArray[i]}`;
             }
-            else if(pgnArray[i - 2].indexOf('.' > -1)){
-                name = `${paddedCount}_${currentMove}.. ${pgnArray[i]}  2`;
+            else if(pgnArray[i - 2] && pgnArray[i - 2].indexOf('.') > -1){
+                //console.log('move for black');
+                name = `${paddedCount}_${currentMove}.. ${pgnArray[i]}`;
             }
             else{
-                name = `${paddedCount} ${pgnArray[i]}`;
+                name = `${paddedCount}_${currentMove} ${pgnArray[i]}`;
             }
         }
         else{
-            name = `${paddedCount} ${pgnArray[i]}`;
+            name = `${paddedCount}_${currentMove} ${pgnArray[i]}`;
         }
         return name;
     },
     async generateChessImages(pgn){ 
         try{
-            console.log(pgn);
+            //console.log(pgn);
             //console.log(filepath);
             var ChessImageGenerator = require('chess-image-generator');
             var fs = require('fs');
@@ -59,11 +62,12 @@ ImageCreator.prototype = {
             /* pgn = `
             1. e4 e5 2. Bc4 Nc6 3. Nf3 h6 4. d3 Bc5 5. O-O Nf6 6. Nc3 O-O 7. Be3 Bxe3 8. fxe3 d6 9. d4 Bg4 10. h3 Bh5 11. g4 Nxg4 12. hxg4 Bxg4 13. Qe1 Kh8 14. Nh2 Bh3 15. Rf3 Qg5+ 16. Rg3 Qh5 17. Be2 Qh4 18. Nf3 Qh5 19. Kf2 f5 20. Nxe5 Qh4 21. Ng6+ Kh7 22. Nxh4 fxe4+ 23. Kg1 g5 24. Rxh3 gxh4 25. Rxh4 Rg8+ 26. Rg4 Rxg4+ 27. Bxg4 Rg8 28. Qh4 Nd8 29. Kf2 Rf8+ 30. Ke2 Nf7 31. Rf1 Kg7 32. Rf6 1-0
             ` */
-
-            const pgnArray = pgn.split(" ");
+            //console.log('pgn = ' + typeof pgn);
+            var pgnArray = pgn.split(/\s+/);
+            console.log(pgnArray);
             let count = 0;
             
-            const bufferArray = [];
+            var bufferArray = [];
             var JSZip = require('jszip');
             var zip = new JSZip();
             
@@ -93,7 +97,7 @@ ImageCreator.prototype = {
 
                     var creator = new ImageCreator();
                     zip.file(creator.getFileName(pgnArray, i, count, currentMove) + '.png', buf); 
-                    console.log('zip.file=' + creator.getFileName(pgnArray, i, count));
+                    console.log('zip.file=' + creator.getFileName(pgnArray, i, count, currentMove));
                     
                     count++;
 

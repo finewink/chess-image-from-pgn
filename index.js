@@ -48,7 +48,10 @@ var enterRouter = require('./src/controller/enter');
 app.use('/', rootRouter);
 app.use('/image', imageRouter);
 app.use('/enter', enterRouter);
-
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
 //console.log(require('./imageCreator').generateChessImages);
 
 console.log('App start');
