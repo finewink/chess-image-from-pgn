@@ -4,6 +4,12 @@ function ImageCreator (){
 }
 
 ImageCreator.prototype = {
+    resolve(results){
+        return results;
+    },
+    reject(results){
+        return results;
+    },
     pgnTransform(before){        
         let after = [];
         
@@ -24,7 +30,7 @@ ImageCreator.prototype = {
 
         before = after.join('');
         after = [];
-        console.log('after remove () =' + before);
+        //console.log('after remove () =' + before);
 
         bracketStart = 0;
         bracketEnd = 0;   
@@ -43,7 +49,7 @@ ImageCreator.prototype = {
 
         before = after.join('');
         after = [];
-        console.log('after remove [] =' + before);
+        //console.log('after remove [] =' + before);
 
         bracketStart = 0;
         bracketEnd = 0;   
@@ -61,7 +67,7 @@ ImageCreator.prototype = {
         after.push(before.slice(bracketEnd, before.length).split());
 
         before = after.join('');
-        console.log('after remove {} =' + before);
+        //console.log('after remove {} =' + before);
         //let reBracket = /[(].*(?:(?![(]))[)]/g;
         //let afterstr = before.replaceAll(reBracket, '');
 
@@ -108,18 +114,21 @@ ImageCreator.prototype = {
         }
         return name;
     },
-    async generateChessImages(pgn){ 
+    async generateChessImages(pgn, size, orientation){ 
         try{
             //console.log(pgn);
             //console.log(filepath);
             var ChessImageGenerator = require('chess-image-generator');
             var fs = require('fs');
             const { Chess } = require('chess.js');
+
+            var fileSize = size | Number(size.trim()) | 360;
+            var ori = Number(orientation) | 0;
             
             var creator = new ImageCreator();
 
             pgn = creator.pgnTransform(pgn);
-            console.log(`creator.pgnTransform(pgn)=${pgn}`);
+            //console.log(`creator.pgnTransform(pgn)=${pgn}`);
             //var path = require('path');
             //var normalized = path.normalize(filepath);
             //console.log('normalized=' + normalized);
@@ -167,10 +176,67 @@ ImageCreator.prototype = {
                     /* imageGenerator.loadPGN(newArray.join(" "))
                         .then(imageGenerator.generateBuffer()(filepath + '\\' + count + ".png"))
                         .then(console.log(`log PGN = ` + newArray.join(" "))); */
-                    await imageGenerator.loadPGN(newArray.join(" "));
-                    //getFileName(pgnArray, i, count);
-                    var buf = await imageGenerator.generateBuffer();
+                    /* let runPy = new Promise(function(success, nosuccess) {
 
+                        const spawn = require("child_process").execSync;
+                        const pythonProcess = spawn('python3',["/chessimage.py", newArray.join(" ")]);
+                        pythonProcess.stdout.on('data', (data) => {
+                            console.log(data);
+                        });
+                    });
+ */
+                    var { PythonShell } = require('python-shell');
+                    var RunPythonScript = async function(scriptPath, args, pythonFile){
+                        let options = {
+                          mode: 'text',
+                          pythonPath: 'python3',
+                          pythonOptions: [], 
+                          scriptPath: scriptPath,
+                          args: args,
+                        };
+                      
+                        return new Promise((resolve,reject) =>{
+                            try{
+                                PythonShell.run(pythonFile, options, function(err, results) {
+                                if (err) {console.log(err);}
+                                // results is an array consisting of messages collected during execution
+                                //console.log('results', results);                              
+                                resolve(results);          
+                                }); 
+                            }
+                            catch{
+                                //console.log('error running python code')
+                                reject();
+                            }
+                        })
+                    }
+
+                    var results = await RunPythonScript('.', [newArray.join(" "), size, ori], 'chessimage.py');
+                    //console.log(results);
+
+                    //const { convert } = require('convert-svg-to-png');
+                    const {svg2png} = require('svg-png-converter');
+                    let buf = await svg2png({ 
+                        input: results.join('').trim(), 
+                        encoding: 'buffer', 
+                        format: 'png',
+                        width: size,
+                        height: size,
+                        multiplier: 1,
+                        quality: 1
+                      })
+                    //const buf = await convert(results.join(''));
+                    
+                    /* runPy.then(function(fromRunpy) {
+                        console.log(fromRunpy.toString());
+                        //res.end(fromRunpy);
+                    }); */
+
+                    //+origin
+                    //await imageGenerator.loadPGN(newArray.join(" "));
+                    
+                    //var buf = await imageGenerator.generateBuffer();
+                    //-origin
                     var creator = new ImageCreator();
                     zip.file(creator.getFileName(pgnArray, i, count, currentMove) + '.png', buf); 
                     console.log('zip.file=' + creator.getFileName(pgnArray, i, count, currentMove));

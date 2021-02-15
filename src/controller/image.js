@@ -20,9 +20,10 @@ router.get('/download', function(req, res){
         var creator = new ImageCreator();
         //console.log(typeof creator);
         //console.log('req.query=' + util.inspect(req.query));
+        console.log('RECV>' + urlencoder.decode(req.query.size));
         console.log('RECV>' + urlencoder.decode(req.query.pgn));
 
-        creator.generateChessImages(urlencoder.decode(req.query.pgn)).then(obj => {
+        creator.generateChessImages(urlencoder.decode(req.query.pgn), req.query.size, req.query.orientation).then(obj => {
             var code = obj.code;
                     
             if(code == 200){
