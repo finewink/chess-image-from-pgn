@@ -4,6 +4,76 @@ function ImageCreator (){
 }
 
 ImageCreator.prototype = {
+    pgnTransform(before){        
+        let after = [];
+        
+        let bracketStart = 0;
+        let bracketEnd = 0;        
+
+        //괄호 안 내용 없애기
+        for(let i = 0 ; i < before.length ; i++){
+            if(before.charAt(i) == '('){
+                after.push(before.slice(bracketEnd, i).split());
+                bracketStart = i;
+            }
+            if(before.charAt(i) == ')'){
+                bracketEnd = i + 1;
+            }
+        }
+        after.push(before.slice(bracketEnd, before.length).split());
+
+        before = after.join('');
+        after = [];
+        console.log('after remove () =' + before);
+
+        bracketStart = 0;
+        bracketEnd = 0;   
+
+        //괄호 안 내용 없애기
+        for(let i = 0 ; i < before.length ; i++){
+            if(before.charAt(i) == '['){
+                after.push(before.slice(bracketEnd, i).split());
+                bracketStart = i;
+            }
+            if(before.charAt(i) == ']'){
+                bracketEnd = i + 1;
+            }
+        }
+        after.push(before.slice(bracketEnd, before.length).split());
+
+        before = after.join('');
+        after = [];
+        console.log('after remove [] =' + before);
+
+        bracketStart = 0;
+        bracketEnd = 0;   
+
+        //괄호 안 내용 없애기
+        for(let i = 0 ; i < before.length ; i++){
+            if(before.charAt(i) == '{'){
+                after.push(before.slice(bracketEnd, i).split());
+                bracketStart = i;
+            }
+            if(before.charAt(i) == '}'){
+                bracketEnd = i + 1;
+            }
+        }
+        after.push(before.slice(bracketEnd, before.length).split());
+
+        before = after.join('');
+        console.log('after remove {} =' + before);
+        //let reBracket = /[(].*(?:(?![(]))[)]/g;
+        //let afterstr = before.replaceAll(reBracket, '');
+
+        let afterstr = after.join('');
+        return afterstr.trim();
+        /* after = [];
+
+        let re = /[0-9]+[.]+[ ]/g;
+        afterstr = afterstr.replace(re, '\n'+'$&');
+    
+        return afterstr;    */     
+    },
     getFileName(pgnArray, i, count, currentMove){
         var paddedCount = '';
         if(count < 10){
@@ -44,6 +114,12 @@ ImageCreator.prototype = {
             //console.log(filepath);
             var ChessImageGenerator = require('chess-image-generator');
             var fs = require('fs');
+            const { Chess } = require('chess.js');
+            
+            var creator = new ImageCreator();
+
+            pgn = creator.pgnTransform(pgn);
+            console.log(`creator.pgnTransform(pgn)=${pgn}`);
             //var path = require('path');
             //var normalized = path.normalize(filepath);
             //console.log('normalized=' + normalized);
@@ -64,7 +140,7 @@ ImageCreator.prototype = {
             ` */
             //console.log('pgn = ' + typeof pgn);
             var pgnArray = pgn.split(/\s+/);
-            console.log(pgnArray);
+            //console.log(pgnArray);
             let count = 0;
             
             var bufferArray = [];
