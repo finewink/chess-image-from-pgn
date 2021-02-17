@@ -73,39 +73,245 @@ body {
   text-align: center;
   font-family: "Noto Sans KR";
 }
-nav {
-  clear: both;
-  display: block;
-  border-bottom: #000000 1px solid;
-  border-top: #000000 1px solid;
+
+.bibim {
+  display: flex !important;
+  flex-direction: row;
+  background-color: #ececec;
+}
+
+.navspace {
+  height: 5px;
+  background-color: #757575;
   margin-bottom: 20px;
 }
-nav ul {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+
+@media (max-width: 649px) {
+  .bibim {
+    flex-direction: column;
+  }
+}
+
+/* .navlogo {
+  background-color: white;
+} */
+
+.navmenu {
+  margin: auto 0;
+  flex: auto;
+  padding-inline-start: 0;
   vertical-align: middle;
 }
-nav li {
-  display: inline;
-  border-left: 2px solid #999;
+
+.navmenulist {
+  flex: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 0 !important;
+  font-size: 18px;
+  font-weight: bold;
+  color: #424242;
+  padding-inline-start: 0px;
+}
+
+@media (min-width: 650px) {
+  /* .navmenulist {
+    flex-direction: column;
+  } */
+}
+@media (max-width: 649px) {
+  .navmenulist {
+    flex-direction: column;
+  }
+  .navmenuitem:first-child {
+    margin-top: 0px;
+  }
+  .navmenuitem:last-child {
+    margin-bottom: 15px;
+  }
+}
+
+.navmenuitem {
   list-style: none;
-  float: left;
+  flex-grow: 2;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.navmenuitem a {
+  color: #757575;
+}
+
+/* ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 0 !important;
+}
+nav ul {
+  vertical-align: middle;
+  text-align: center;
+}
+nav ul:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+nav .navlogo {
+  display: inline-flex;
+  flex: 0;
+}
+
+nav .navmenu {
+  display: inline-flex;
+  flex: 0;
+}
+
+nav .navmenu > ul {
+  padding-inline-start: 0;
+}
+nav li {
+  flex: 1;
+  list-style: none;
   font-size: 18px;
   font-weight: bold;
   color: #424242;
   padding: 0 20px;
   vertical-align: middle;
-}
+} */
 
-nav li a {
+/*
+##Device = Desktops
+##Screen = 1281px to higher resolution desktops
+##Device = 데스크탑
+##Screen = 1281px 이상 해상도 데스크탑
+*/
+
+/* @media (min-width: 1281px) {
+  nav li {
+    flex: 1;
+    
+    list-style: none;
+    
+    font-size: 18px;
+    flex-grow: 1;
+    font-weight: bold;
+    color: #424242;
+    padding: 0 20px;
+    vertical-align: middle;
+    text-align: center;
+  }
+} */
+
+/*
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+  ##Device = 랩탑, 데스크탑
+  ##Screen = 1025px에서 1280px 사이
+  */
+
+/* @media (min-width: 1025px) and (max-width: 1280px) {
+  nav li {
+    flex: 1;
+    list-style: none;
+    float: left;
+    font-size: 18px;
+    font-weight: bold;
+    color: #424242;
+    padding: 0 20px;
+    vertical-align: middle;
+  }
+}
+ */
+/*
+  ##Device = Tablets, Ipads (portrait),
+  ##Screen = B/w 768px to 1024px
+  ##Device = 태블릿, 아이패드(세로),
+  ##Screen = 768px에서 1024px 사이
+  */
+
+/* @media (min-width: 768px) and (max-width: 1024px) {
+  nav li {
+    display: block;
+   
+    list-style: none;
+  
+    font-size: 18px;
+    font-weight: bold;
+    color: #424242;
+   
+    vertical-align: middle;
+  }
+  ul {
+    padding-inline-start: 0px !important;
+  }
+} */
+/*
+##Device = Tablets, Ipads (landscape)
+##Screen = B/w 768px to 1024px
+##Device = 태블릿, 아이패드(가로)
+##Screen = 768px에서 1024px 사이
+*/
+
+/* @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  nav li {
+    display: block;
+    list-style: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #424242;
+    vertical-align: middle;
+  }
+} */
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+  ##Device = 저해상도 태블릿, 모바일(가로)
+  ##Screen = 481px에서 767px 사이
+  */
+
+/* @media (min-width: 481px) and (max-width: 767px) {
+  nav li {
+    display: block;
+
+    list-style: none;
+
+    font-size: 18px;
+    font-weight: bold;
+    color: #424242;
+
+    vertical-align: middle;
+  }
+} */
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+  ##Device = 대부분의 스마트폰 모바일 기기(세로)
+  ##Screen = 320px에서 479px 사이
+  */
+
+/* @media (min-width: 320px) and (max-width: 480px) {
+  nav li {
+    display: block;
+    list-style: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #424242;
+    vertical-align: middle;
+  }
+} */
+/* nav li a {
   color: #757575;
 }
 
 nav ul li:first-child {
   border-left: none;
 }
-
+ */
 a {
   text-decoration: none;
   color: #000000;
@@ -159,3 +365,11 @@ label.radiolabel:first-child {
   margin-right: 0px;
 }
  */
+
+.textarea_gibo {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 20px;
+  clear: both;
+}

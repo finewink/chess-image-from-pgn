@@ -1,0 +1,69 @@
+.content .layout .contchild {
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+}
+
+.contchild .enterinput {
+  flex: auto;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+  /* padding: 10px; */
+}
+
+.enterinput .enterinputchild {
+  flex: auto;
+}
+
+.outputwrapper {
+  background-color: #ececec;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  border-color: #ececec;
+  border-radius: 10px;
+}
+
+.enterinput2 {
+  display: flex;
+}
+
+.enterinput2 button {
+  margin-top: auto;
+}
+
+.contchild .enteroutput {
+  flex: auto;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 0;
+  padding: 10px;
+}
+
+@media (min-width: 1281px) {
+  /* .navmenulist {
+      flex-direction: column;
+    } */
+}
+@media (max-width: 1280px) {
+  .contchild .enteroutput {
+    flex-direction: column;
+  }
+}
+
+.ta_input {
+  width: 100%;
+}
+
+.ta_output {
+  margin: auto 0;
+  width: 90%;
+}
+
+.dochange_button {
+  margin-top: auto;
+  margin-left: auto;
+  padding: 10px;
+  width: 95%;
+}

@@ -9,7 +9,7 @@
     "build": "pkg ."
   },
   "author": "finewink@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "base64-arraybuffer": "^0.2.0",
     "chess-image-generator": "^1.0.9",

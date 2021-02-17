@@ -1,37 +1,11 @@
 
 <html>
 <head>
-    <title>Get PGN with linebreaks. Bibimnews Tools</title>
-    <script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
-    <script
-    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"/>
-  <link rel="stylesheet" href="/css/default.css"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-  <style type="text/css">
-
-
-    .dochange_button{
-        width:90%;
-        height:100px;
-        clear: both;
-        margin-left:5%;
-        margin-right:5%;
-        margin-top:20px;
-        margin-bottom:20px;        
-    }
-    .textarea_gibo{
-        width:100%;
-        clear:both;
-    }
-  </style>
+  <title>Get PGN with linebreaks. Bibimnews Tools</title>
+  <%-include('common-header') %>
+  <link rel="stylesheet" href="/css/enter.css"/>
   <script type="text/javascript">
+
     function doRun(){
         $('#dochange').click(function(){
             let before = getBefore();
@@ -95,21 +69,64 @@
 
     $(document).ready(function(){
         doRun();
+
+        $('#dochange').button({ 
+            icons: { 
+            primary: "ui-icon-triangle-1-e" }
+        });
+
+        $('#before').attr({'placeholder':'Copy PGN from chess.com or lichess.org and paste it here.'});
     });
     </script>
 </head>
 <body>
     <%-include('menu') %>
     <canvas id="canvas" style="display:none"></canvas>
-    <h1>Get PGN with linebreaks.</h1>
-    <h2>1. Insert PGN Here</h2>
-    <textarea id="before" name="before" class="textarea_gibo" cols="150" rows="15"></textarea> 
-    <h2>2. Click to convert</h2>
-    <button name="dochange" id="dochange" class="dochange_button">변환</button>
-    <h2>3. Converted PGN with linebreaks</h2>
-    <textarea id="after" name="after"  class="textarea_gibo" cols="150" rows="15"></textarea>
-    <h2>4. Converted PGN with li tags</h2>
-    <textarea id="afterli" name="afterli"  class="textarea_gibo" cols="150" rows="15"></textarea>
+    <div class="content">
+        <div class="layout">
+            <div class="conttitle">
+                <h1>Get PGN with linebreaks.</h1>
+                <p>This tool helps chess fans. <br/>
+                    You can get a PGN of your game via chess.com or lichess.org or other sources.<br/>
+                    Make PGN easily readable.
+                    This tool makes none-linebreak PGN have linebreaks for each moves.
+
+                 </p>
+            </div>
+            <div class="contchild">
+                
+                <h3>1. Insert PGN here and click convert button.</h3>
+                <div class="enterinput">
+                    
+                    <div class="enterinputchild enterinput1">
+<!--                         <h2>1. Insert PGN Here</h2>
+ -->                        <textarea id="before" name="before" class="ui-widget ui-state-default ui-corner-all ta_input" cols="150" rows="10"></textarea>
+                    </div>
+                    <div class="enterinputchild enterinput2">
+<!--                         <h2>2. Click to convert</h2>
+ -->                        <button name="dochange" id="dochange" class="dochange_button ui-state-default ui-widget ui-corner-all"><b>▼convert</b></button> 
+                    </div>
+                </div>
+                <div class="outputwrapper">
+                    <h3>2. Get your converted PGN here.</h3>
+                    <div class="enteroutput">
+                        <div class="enteroutputchild enteroutput1">
+                            <h4>Converted PGN with linebreaks</h4>
+                            <textarea id="after" name="after"  class="ui-widget ui-state-default ui-corner-all ta_output" cols="150" rows="10"></textarea>
+                        </div>
+                        <div class="enteroutputchild enteroutput2">
+                            <h4>Converted PGN with li tags</h4>
+                            <textarea id="afterli" name="afterli"  class="ui-widget ui-state-default ui-corner-all ta_output" cols="150" rows="10"></textarea>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-include('footer') %>
 </body>
 </html>
 
