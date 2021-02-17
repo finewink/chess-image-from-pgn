@@ -1,6 +1,6 @@
 
 
-#License
+# License
 
 MIT License
 Copyright (c) 2021 Inho Lee<finewink@gmail.com>
@@ -31,42 +31,42 @@ This program may contain following open source software.
   - Copyrights: Copyright (c) 2012 Niklas von Hertzen under MIT license.
   - Location: https://github.com/niklasvh/base64-arraybuffer
   
-###2. chess-image-generator
+### 2. chess-image-generator
   - Copyrights: Copyright (c) 2020 Andrew Young under MIT License
   - Location: https://github.com/andyruwruw/chess-image-generator
   
-###3. ejs
+### 3. ejs
   - Copyrights: Apache License, version 2.0
   - Location: https://ejs.co/
   
-###4. cookie-parser
+### 4. cookie-parser
   - Copyrights: Copyright (c) 2014 TJ Holowaychuk <tj@vision-media.ca>, Copyright (c) 2015 Douglas Christopher Wilson <doug@somethingdoug.com>
   - Location: https://github.com/expressjs/cookie-parser
   
-###5. crypto
+### 5. crypto
   - Copyrights: (MIT License) Copyright (c) 2009-2013 Jeff Mott, Copyright (c) 2013-2016 Evan Vosberg 
   - Location: https://github.com/brix/crypto-js
   
-###6. express
+### 6. express
   - Copyrights: (MIT License) Copyright (c) 2009-2014 TJ Holowaychuk <tj@vision-media.ca>, Copyright (c) 2013-2014 Roman Shtylman <shtylman+expressjs@gmail.com>, Copyright (c) 2014-2015 Douglas Christopher Wilson <doug@somethingdoug.com>
   - Location: expressjs.com
   
-###7. file-saver
+### 7. file-saver
   - Copyrights: (MIT License) Copyright © 2016 Eli Grey.
   - Location: https://github.com/eligrey/FileSaver.js
 
-###8. jszip
+### 8. jszip
   - Copyrights: MIT License & GPL3, Copyright (c) 2009-2016 Stuart Knightley, David Duponchel, Franz Buchinger, António Afonso
   - Location: https://github.com/Stuk/jszip
 
-###9. python-shell
+### 9. python-shell
   - Copyrights: MIT License, Copyright (c) 2014 Nicolas Mercier
   - Location: https://github.com/extrabacon/python-shell
   
-###10. svg-png-converter
+### 10. svg-png-converter
   - Copyrights: uknown, To be updated.
   - Location: https://www.npmjs.com/package/svg-png-converter
   
-###11. urlencode
+### 11. urlencode
   - Copyrights: MIT License, Copyright (C) 2012 - 2014 fengmk2 <fengmk2@gmail.com>, Copyright (C) 2015 node-modules
   - Location: https://github.com/node-modules/urlencode
