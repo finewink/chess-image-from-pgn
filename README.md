@@ -3,7 +3,7 @@
 # License
 
 MIT License
-Copyright (c) 2021 Inho Lee<finewink@gmail.com>
+Copyright (c) 2021 Inho Lee <finewink@gmail.com>
 
      
 
