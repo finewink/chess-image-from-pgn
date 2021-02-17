@@ -115,17 +115,17 @@ body {
   padding-inline-start: 0px;
 }
 
-@media (min-width: 650px) {
-  /* .navmenulist {
-    flex-direction: column;
-  } */
+@media (min-width: 860px) {
+  .navmenuitem {
+    margin-left: 30px;
+  }
 }
-@media (max-width: 649px) {
+@media (max-width: 859px) {
   .navmenulist {
     flex-direction: column;
   }
   .navmenuitem:first-child {
-    margin-top: 0px;
+    margin-top: 15px;
   }
   .navmenuitem:last-child {
     margin-bottom: 15px;
@@ -134,7 +134,7 @@ body {
 
 .navmenuitem {
   list-style: none;
-  flex-grow: 2;
+  flex-grow: 0;
   margin-top: 5px;
   margin-bottom: 5px;
 }
