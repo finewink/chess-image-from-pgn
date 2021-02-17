@@ -4,13 +4,13 @@ https://tool.bibimnews.com
 
 # Service Description
 
-## Board images with PGN https://tool.bibimnews.com/image
+### 1. Get chess board images from PGN https://tool.bibimnews.com/image
 
 To explain your game on the website, you need the sequence of images of your games.
 This will extract the board images from every moves.
 You can download it by ZIP format contains PNG files.
 
-## Get PGN with linebreaks https://tool.bibimnews.com/enter
+### 2. Get PGN with linebreaks https://tool.bibimnews.com/enter
 
 To quote entire game on a website, you need to make it esaily readable.
 This tool will help you with that.
