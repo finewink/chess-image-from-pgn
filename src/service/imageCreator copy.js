@@ -157,8 +157,8 @@ ImageCreator.prototype = {
             var zip = new JSZip();
             
             var currentMove = '';
-            
-            var asyncLoopFunction = async function(pgnArray, i){
+
+            var asyncLoopFunction = async function(){
                 if(pgnArray[i].indexOf(".") == -1){
                     var imageGenerator = new ChessImageGenerator({size:360});
                     var newArray = pgnArray.slice(0, i + 1);
@@ -247,25 +247,103 @@ ImageCreator.prototype = {
                 else{
                     currentMove = pgnArray[i];
                 }
-
-                return new Promise((resolve, reject) => {
-                    try{
-                        resolve();
-                    }catch(err){
-                        reject();
-                    }
-                    
-                });
             }
-            var promiseMap = new Array();
+
             for(var i = 0 ; i < pgnArray.length ; i++){
-                promiseMap.push(asyncLoopFunction(pgnArray, i));                                
+                await asyncLoopFunction();                
+                
+                    //console.log(pgnArray[i].indexOf(".")  + ' ' + i + '=' +pgnArray[i]);
+                    if(pgnArray[i].indexOf(".") == -1){
+                        var imageGenerator = new ChessImageGenerator({size:360});
+                        var newArray = pgnArray.slice(0, i + 1);
+                        //console.log(count + '=' + newArray.join(" "));
+                        //var normalPath = path.resolve(path.join(normalized, count + '', ".png"));
+                        //console.log(normalPath);
+                        /* imageGenerator.loadPGN(newArray.join(" ")) */
+                        /*     .then(imageGenerator.generateBuffer().then(buf => { */
+                        /*         //console.log(count + '\n' + buf); */
+                        /*         console.log('create buffer=' + count); */
+                        /*         zip.file(count + '.png', buf); */
+                        /*          */
+                        /*     })) */
+                        /*     .then(console.log('then create buffer=' + count));        */         
+                        /* imageGenerator.loadPGN(newArray.join(" "))
+                            .then(imageGenerator.generateBuffer()(filepath + '\\' + count + ".png"))
+                            .then(console.log(`log PGN = ` + newArray.join(" "))); */
+                        /* let runPy = new Promise(function(success, nosuccess) {
+
+                            const spawn = require("child_process").execSync;
+                            const pythonProcess = spawn('python3',["/chessimage.py", newArray.join(" ")]);
+                            pythonProcess.stdout.on('data', (data) => {
+                                console.log(data);
+                            });
+                        });
+    */
+                        var { PythonShell } = require('python-shell');
+                        var RunPythonScript = async function(scriptPath, args, pythonFile){
+                            let options = {
+                            mode: 'text',
+                            pythonPath: 'python3',
+                            pythonOptions: [], 
+                            scriptPath: scriptPath,
+                            args: args,
+                            };
+                        
+                            return new Promise((resolve,reject) =>{
+                                try{
+                                    PythonShell.run(pythonFile, options, function(err, results) {
+                                    if (err) {console.log(err);}
+                                    // results is an array consisting of messages collected during execution
+                                    //console.log('results', results);                              
+                                    resolve(results);          
+                                    }); 
+                                }
+                                catch{
+                                    //console.log('error running python code')
+                                    reject();
+                                }
+                            })
+                        }
+
+                        var results = await RunPythonScript('.', [newArray.join(" "), size, ori], 'chessimage.py');
+                        //console.log(results);
+
+                        //const { convert } = require('convert-svg-to-png');
+                        const {svg2png} = require('svg-png-converter');
+                        let buf = await svg2png({ 
+                            input: results.join('').trim(), 
+                            encoding: 'buffer', 
+                            format: 'png',
+                            width: size,
+                            height: size,
+                            multiplier: 1,
+                            quality: 1
+                        })
+                        //const buf = await convert(results.join(''));
+                        
+                        /* runPy.then(function(fromRunpy) {
+                            console.log(fromRunpy.toString());
+                            //res.end(fromRunpy);
+                        }); */
+
+                        //+origin
+                        //await imageGenerator.loadPGN(newArray.join(" "));
+                        
+                        //var buf = await imageGenerator.generateBuffer();
+                        //-origin
+                        var creator = new ImageCreator();
+                        zip.file(creator.getFileName(pgnArray, i, count, currentMove) + '.png', buf); 
+                        console.log('zip.file=' + creator.getFileName(pgnArray, i, count, currentMove));
+                        
+                        count++;
+
+                    }
+                    else{
+                        currentMove = pgnArray[i];
+                    }
+                
             }
 
-            console.log(promiseMap);
-            console.log(promiseMap.size);
-            await Promise.all(promiseMap);
-            console.log("promise.all() has done!");
             var FileSaver = require('file-saver');
 
             //let zipFileName = 'a.zip';
