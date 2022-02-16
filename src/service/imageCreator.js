@@ -158,7 +158,7 @@ ImageCreator.prototype = {
             
             var currentMove = '';
             
-            var asyncLoopFunction = async function(pgnArray, i){
+            var asyncLoopFunction = async function(pgnArray, i, count){
                 if(pgnArray[i].indexOf(".") == -1){
                     var imageGenerator = new ChessImageGenerator({size:360});
                     var newArray = pgnArray.slice(0, i + 1);
@@ -259,7 +259,7 @@ ImageCreator.prototype = {
             }
             var promiseMap = new Array();
             for(var i = 0 ; i < pgnArray.length ; i++){
-                promiseMap.push(asyncLoopFunction(pgnArray, i));                                
+                promiseMap.push(asyncLoopFunction(pgnArray, i, count));                                
             }
 
             console.log(promiseMap);
