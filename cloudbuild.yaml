@@ -2,6 +2,6 @@ steps:
   - name: node
     entrypoint: npm
     args: ['install']
-  - name: node
-    entrypoint: node
+  - name: 'gcr.io/cloud-builders/npm'
+    entrypoint: 'node'
     args: ['index.js']
