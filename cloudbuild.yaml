@@ -11,7 +11,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'SERVICE-NAME'
+      - 'chess-image-from-pgn'
       - '--image'
       - 'gcr.io/tool-bibimnews/chess-image-from-pgn:$COMMIT_SHA'
       - '--region'
