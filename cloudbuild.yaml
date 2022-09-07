@@ -3,5 +3,5 @@ steps:
     entrypoint: npm
     args: ['install']
   - name: node
-    entrypoint: npm
-    args: ['run', 'build']
+    entrypoint: node
+    args: ['index.js']
