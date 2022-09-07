@@ -18,3 +18,5 @@ steps:
       - 'us-west1'
 images:
   - gcr.io/tool-bibimnews/chess-image-from-pgn:$COMMIT_SHA
+
+  
