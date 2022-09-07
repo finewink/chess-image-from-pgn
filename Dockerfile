@@ -1,5 +1,8 @@
 FROM node:18
 
+RUN apt-get update
+RUN apt-get install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -15,5 +18,5 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 8080
+EXPOSE 3000
 CMD [ "node", "index.js" ]
